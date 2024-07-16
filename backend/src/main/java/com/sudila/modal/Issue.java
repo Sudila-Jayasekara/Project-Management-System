@@ -4,12 +4,12 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
-@Data
+@Data // Lombok annotation to generate getters, setters, toString, etc.
 public class Issue {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long id; // Unique identifier for the issue
 
-    @ManyToOne
-    private User assignee;
+    @ManyToOne // Many issues can be assigned to one user
+    private User assignee; // User assigned to this issue
 }
