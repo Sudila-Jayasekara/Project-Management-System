@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Data // Lombok annotation to generate getters, setters, toString, etc.
+@Data
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,9 +18,9 @@ public class User {
     private String email;
     private String password;
 
-    @JsonIgnore // Ignores JSON serialization of assignedIssues field to prevent circular dependencies
-    @OneToMany(mappedBy = "assignee", cascade = CascadeType.ALL) // One user can have many assigned issues
-    private List<Issue> assignedIssues = new ArrayList<>(); // List of issues assigned to this user
+    @JsonIgnore //meken wenne User gaddi me  issues list eka ganne nethuwa inna eka mokd issue list eke aye user gannawa eken aye issue gannawa eka iwara wenne ne
+    @OneToMany(mappedBy = "assignee", cascade = CascadeType.ALL)
+    private List<Issue> assignedIssues = new ArrayList<>();
 
-    private int projectSize; // Size of the project related to the user
+    private int projectSize;
 }

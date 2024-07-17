@@ -1,7 +1,12 @@
 package com.sudila.modal;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data // Lombok annotation to generate getters, setters, toString, etc.
@@ -10,6 +15,23 @@ public class Issue {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id; // Unique identifier for the issue
 
-    @ManyToOne // Many issues can be assigned to one user
-    private User assignee; // User assigned to this issue
+    private String title;
+    private String description;
+    private String status;
+    private Long projectID;
+    private String priority;
+    private LocalDate dueDate;
+    private List<String> tags = new ArrayList<>();
+
+    @ManyToOne
+    private User assignee;
+
+    @JsonIgnore
+    @ManyToOne
+    private Project project;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "issue", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> comments = new ArrayList<>();
+
 }
